@@ -1,10 +1,13 @@
-import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup, 
+    crateUserDocumentFromAuth
+ } from "../../utils/firebase/firebase.utils";
+ import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
 
 const SignIn = () => {
 
     const logGoogleUser = async () => {
-        const response = await signInWithGooglePopup();
-        console.log(response);
+        const {user} = await signInWithGooglePopup();
+        const userDocRef = await crateUserDocumentFromAuth(user);
     }
 
     return (
@@ -13,6 +16,7 @@ const SignIn = () => {
             <button onClick={logGoogleUser}>
                 Sig In With Google Popup
             </button>
+            <SignUpForm />
         </div>
     )
 }
